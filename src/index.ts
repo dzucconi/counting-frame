@@ -1,4 +1,4 @@
-import { numberToState, State, STATE } from "./abacus";
+import { numberToState, State } from "./abacus";
 
 const size = 100;
 const color = "gray";
@@ -41,4 +41,7 @@ const render = (state: State): string => {
   return `<div class="Grid">${columns}</div>`;
 };
 
+setTimeout(() => {
+  console.log(Math.random() * 1000000);
+}, 1000);
 root.innerHTML = render(numberToState(58));
