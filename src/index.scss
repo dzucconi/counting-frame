@@ -1,0 +1,17 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+.Grid {
+  display: flex;
+}
+
+.Column {
+  display: flex;
+  flex-direction: column;
+}
+
+.Cell {
+  border: 1px dotted #222;
+}
