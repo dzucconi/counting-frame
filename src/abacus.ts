@@ -11,30 +11,28 @@ const COLUMNS = [
   [true, false, false, true, true, true, true, true, false, false, true],
 ];
 
-// prettier-ignore
-const RANGE = [
-  10000000000,
-  1000000000,
-  100000000,
-  10000000,
-  1000000,
-  100000,
-  10000,
-  1000,
-  100,
-  10,
-  1,
-  0.1,
-  0.01,
-] as const;
+export const buildRange = (max: number) => {
+  const limit = 10 ** Math.ceil(Math.log10(max));
+  const powers = Math.max(Math.floor(Math.log10(limit)), 0);
+
+  return [...new Array(powers)]
+    .reduce(
+      (acc, _, i) => {
+        return [...acc, 10 ** (i + 1)];
+      },
+      [1]
+    )
+    .reverse();
+};
+
+const RANGE = buildRange(10000000000);
 
 export type Column = typeof COLUMNS[0];
 export type State = Column[];
-export type Value = typeof RANGE[number];
 
-const sum = (xs: number[]) => xs.reduce((a, b) => a + b, 0);
+export const sum = (xs: number[]) => xs.reduce((a, b) => a + b, 0);
 
-export const numberToValues = (number: number): Value[] => {
+export const encodeColumn = (number: number): number[] => {
   return RANGE.reduce((acc, value) => {
     const current = sum(acc);
     const remainder = number - current;
@@ -49,11 +47,11 @@ export const numberToValues = (number: number): Value[] => {
     }
 
     return acc;
-  }, [] as Value[]);
+  }, [] as number[]);
 };
 
-export const numberToState = (number: number): State => {
-  const values = numberToValues(number);
+export const encode = (number: number): State => {
+  const values = encodeColumn(number);
 
   return RANGE.map((value) => {
     const amount = values.filter((v) => v === value).length;

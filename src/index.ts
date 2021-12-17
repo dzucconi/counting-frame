@@ -1,4 +1,4 @@
-import { numberToState, State } from "./abacus";
+import { encode, State } from "./abacus";
 
 const size = 100;
 const color = "gray";
@@ -23,7 +23,7 @@ const negative = toStyle({
 
 const root = document.getElementById("root");
 
-const render = (state: State): string => {
+const renderAbacus = (state: State): string => {
   const columns = state
     .map((column) => {
       const cells = column
@@ -41,7 +41,19 @@ const render = (state: State): string => {
   return `<div class="Grid">${columns}</div>`;
 };
 
-setTimeout(() => {
-  console.log(Math.random() * 1000000);
-}, 1000);
-root.innerHTML = render(numberToState(58));
+const randomNumber = (min: number, max: number) => {
+  const number = Math.random() * (max - min) + min;
+  return Math.round(number);
+};
+
+const step = () => {
+  const number = randomNumber(0, 99);
+
+  root.innerHTML = `
+    <div class="Number">${number}</div>
+    ${renderAbacus(encode(number))}
+  `;
+};
+
+step();
+setInterval(step, 100);
