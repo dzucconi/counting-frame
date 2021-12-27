@@ -33,7 +33,7 @@ export type State = Column[];
 export const sum = (xs: number[]) => xs.reduce((a, b) => a + b, 0);
 
 export const encodeColumn = (number: number): number[] => {
-  return RANGE.reduce((acc, value) => {
+  return RANGE.reduce((acc: number[], value: number) => {
     const current = sum(acc);
     const remainder = number - current;
 
@@ -47,7 +47,7 @@ export const encodeColumn = (number: number): number[] => {
     }
 
     return acc;
-  }, [] as number[]);
+  }, []);
 };
 
 export const encode = (number: number): State => {
