@@ -1,72 +1,91 @@
-import { encode, State } from "./abacus";
 import { scale } from "proportional-scale";
-import { NEGATIVE_STYLES, POSITIVE_STYLES, randomNumber, wait } from "./utils";
+import { randomNumber, toNode, wait } from "./utils";
+import * as render from "./render";
 
 const root = document.getElementById("root");
 
-const renderAbacus = (state: State): string => {
-  const columns = state
-    .map((column) => {
-      const cells = column
-        .map((cell) => {
-          return `<div class="Cell" style="${
-            cell ? POSITIVE_STYLES : NEGATIVE_STYLES
-          }"></div>`;
-        })
-        .join("");
-
-      return `<div class="Column">${cells}</div>`;
-    })
-    .join("");
-
-  return `<div id="Grid" class="Grid">${columns}</div>`;
-};
-
-const render = (n: number) => {
-  root.innerHTML = `
-    ${n !== 0 ? `<div class="Number">${n}</div>` : ""}
-    ${renderAbacus(encode(n))}
-  `;
-  resize();
-};
-
 const resize = () => {
-  const grid = document.getElementById("Grid");
-
-  grid.style.position = "fixed";
-  grid.style.top = "50%";
-  grid.style.left = "50%";
-  grid.style.marginLeft = `-${grid.offsetWidth / 2}px`;
-  grid.style.marginTop = `-${grid.offsetHeight / 2}px`;
+  root.style.position = "fixed";
+  root.style.top = "50%";
+  root.style.left = "50%";
+  root.style.marginLeft = `-${root.offsetWidth / 2}px`;
+  root.style.marginTop = `-${root.offsetHeight / 2}px`;
 
   const resized = scale({
-    width: grid.offsetWidth,
-    height: grid.offsetHeight,
+    width: root.offsetWidth,
+    height: root.offsetHeight,
     maxWidth: window.innerWidth,
     maxHeight: window.innerHeight,
   });
 
-  grid.style.transform = `scale(${resized.scale})`;
+  root.style.transform = `scale(${resized.scale})`;
+};
+
+const animate = async (from: number, to: number) => {
+  root.innerHTML = "";
+
+  const $current = toNode(`<div class='Current'>${render.abacus(from)}</div>`);
+  const $next = toNode(`<div class='Next'>${render.abacus(to)}</div>`);
+
+  root.appendChild($current);
+  root.appendChild($next);
+
+  const columns = $current.querySelectorAll(".Column");
+
+  for await (const [i, $nextColumn] of $next
+    .querySelectorAll(".Column")
+    .entries()) {
+    // Stagger each column
+    await wait(100);
+
+    const $currentColumn = columns[i];
+
+    $nextColumn.querySelectorAll(".Cell").forEach(($cell) => {
+      const $to = $cell as HTMLElement;
+
+      // Skip blanks
+      if ($to.dataset.cell === "false") return;
+
+      const $from = $currentColumn.querySelector(
+        `.Cell[data-cell='${$to.dataset.cell}']`
+      ) as HTMLElement;
+
+      const y = $to.offsetTop - $from.offsetTop;
+
+      // Skip if already at the right position
+      if (y === 0) return;
+
+      $from.style.transform = `translateY(${y}px)`;
+    });
+  }
+
+  // Wait for the animation to finish + pause
+  await wait(500 + 1000);
+
+  root.innerHTML = `<div class='Current'>${render.abacus(to)}</div>`;
+};
+
+const STATE = {
+  current: randomNumber(1, 999999999),
 };
 
 const step = async () => {
-  const first = randomNumber(0, 99999999);
-  const second = randomNumber(0, 99999999);
-  const total = first + second;
-
-  render(0);
-  await wait(3000);
-  render(first);
-  await wait(1000);
-  render(second);
-  await wait(3000);
-  render(total);
-  await wait(5000);
-
-  step();
+  const next = randomNumber(1, 999999999);
+  await animate(STATE.current, next);
+  STATE.current = next;
+  await step();
 };
 
 step();
 
 resize();
 window.addEventListener("resize", resize);
+
+// Parcel
+const hot = (module as any)?.hot;
+if (hot) {
+  hot.dispose(() => {
+    window.location.reload();
+    throw "hotReload";
+  });
+}

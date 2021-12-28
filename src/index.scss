@@ -5,6 +5,20 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.Root {
+  position: relative;
+}
+
+.Next {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .Grid {
   display: flex;
 }
@@ -16,23 +30,29 @@ body {
 
 .Cell {
   position: relative;
+  transition: transform 500ms;
+  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 
-  &:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    bottom: 0;
-    width: 4px;
-    margin-left: -2px;
-    background-color: gray;
-    z-index: -1;
-  }
+  // &:after {
+  //   content: "";
+  //   display: block;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 50%;
+  //   bottom: 0;
+  //   width: 4px;
+  //   margin-left: -2px;
+  //   background-color: gray;
+  //   z-index: -1;
+  // }
 
-  &:nth-child(4) {
-    border-bottom: 4px solid gray;
-  }
+  // &:nth-child(4) {
+  //   border-bottom: 4px solid gray;
+  // }
 }
 
 .Number {

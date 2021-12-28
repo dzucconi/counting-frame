@@ -1,17 +1,17 @@
 const COLUMNS = [
-  [true, true, false, false, false, false, true, true, true, true, true],
-  [true, true, false, false, true, false, false, true, true, true, true],
-  [true, true, false, false, true, true, false, false, true, true, true],
-  [true, true, false, false, true, true, true, false, false, true, true],
-  [true, true, false, false, true, true, true, true, false, false, true],
-  [true, false, false, true, false, false, true, true, true, true, true],
-  [true, false, false, true, true, false, false, true, true, true, true],
-  [true, false, false, true, true, true, false, false, true, true, true],
-  [true, false, false, true, true, true, true, false, false, true, true],
-  [true, false, false, true, true, true, true, true, false, false, true],
+  ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"], // 0
+  ["A", "B", false, false, "C", false, false, "D", "E", "F", "G"], // 1
+  ["A", "B", false, false, "C", "D", false, false, "E", "F", "G"], // 2
+  ["A", "B", false, false, "C", "D", "E", false, false, "F", "G"], // 3
+  ["A", "B", false, false, "C", "D", "E", "F", false, false, "G"], // 4
+  ["A", false, false, "B", false, false, "C", "D", "E", "F", "G"], // 5
+  ["A", false, false, "B", "C", false, false, "D", "E", "F", "G"], // 6
+  ["A", false, false, "B", "C", "D", false, false, "E", "F", "G"], // 7
+  ["A", false, false, "B", "C", "D", "E", false, false, "F", "G"], // 8
+  ["A", false, false, "B", "C", "D", "E", "F", false, false, "G"], // 9
 ];
 
-export const buildRange = (max: number) => {
+export const buildRange = (max: number): number[] => {
   const limit = 10 ** Math.ceil(Math.log10(max));
   const powers = Math.max(Math.floor(Math.log10(limit)), 0);
 

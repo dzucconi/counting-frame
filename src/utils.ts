@@ -26,3 +26,7 @@ export const randomNumber = (min: number, max: number) => {
 
 export const wait = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
+
+export const toNode = (html: string) =>
+  new DOMParser().parseFromString(html, "text/html").body
+    .firstChild as HTMLElement;

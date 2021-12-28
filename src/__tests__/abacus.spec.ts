@@ -53,17 +53,17 @@ describe("abacus", () => {
   describe("encode", () => {
     it("converts a number to a columnar representation", () => {
       expect(encode(666)).toEqual([
-        [true, true, false, false, false, false, true, true, true, true, true],
-        [true, true, false, false, false, false, true, true, true, true, true],
-        [true, true, false, false, false, false, true, true, true, true, true],
-        [true, true, false, false, false, false, true, true, true, true, true],
-        [true, true, false, false, false, false, true, true, true, true, true],
-        [true, true, false, false, false, false, true, true, true, true, true],
-        [true, true, false, false, false, false, true, true, true, true, true],
-        [true, true, false, false, false, false, true, true, true, true, true],
-        [true, false, false, true, true, false, false, true, true, true, true],
-        [true, false, false, true, true, false, false, true, true, true, true],
-        [true, false, false, true, true, false, false, true, true, true, true],
+        ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"],
+        ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"],
+        ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"],
+        ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"],
+        ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"],
+        ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"],
+        ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"],
+        ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"],
+        ["A", false, false, "B", "C", false, false, "D", "E", "F", "G"],
+        ["A", false, false, "B", "C", false, false, "D", "E", "F", "G"],
+        ["A", false, false, "B", "C", false, false, "D", "E", "F", "G"],
       ]);
     });
   });
