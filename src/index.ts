@@ -6,6 +6,13 @@ const DOM = {
   root: document.getElementById("root"),
   stage: document.getElementById("stage"),
   log: document.getElementById("log"),
+  structure: document.getElementById("structure"),
+};
+
+const TIMINGS = {
+  column: 100,
+  transition: 500,
+  pause: 1000,
 };
 
 const resize = () => {
@@ -23,6 +30,8 @@ const resize = () => {
   });
 
   DOM.stage.style.transform = `scale(${resized.scale})`;
+
+  structure();
 };
 
 const animate = async (from: number, to: number) => {
@@ -41,7 +50,7 @@ const animate = async (from: number, to: number) => {
     .querySelectorAll(".Column")
     .entries()) {
     // Stagger each column
-    await wait(100);
+    await wait(TIMINGS.column);
 
     const $currentColumn = columns[i];
 
@@ -67,9 +76,23 @@ const animate = async (from: number, to: number) => {
   DOM.log.innerHTML = render.log(STATE.values);
 
   // Wait for the animation to finish + pause
-  await wait(500 + 1000);
+  await wait(TIMINGS.transition + TIMINGS.pause);
 
   DOM.stage.innerHTML = `<div class='Current'>${render.abacus(to)}</div>`;
+};
+
+// Render structure in relation to existing cell grid
+const structure = () => {
+  const $cell = document.querySelector(".Cell:nth-child(4)");
+  const { width, bottom } = $cell.getBoundingClientRect();
+
+  const size = Math.floor(width / 30);
+  const xs = Array.from(document.querySelectorAll(".Column")).map(($column) => {
+    return $column.getBoundingClientRect().left + width / 2 - size / 2;
+  });
+  const y = bottom - size / 2;
+
+  DOM.structure.innerHTML = render.structure({ size, xs, y });
 };
 
 const STATE = {

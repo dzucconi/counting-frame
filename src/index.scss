@@ -36,23 +36,6 @@ body {
   align-items: center;
   justify-content: center;
   color: white;
-
-  &:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    bottom: 0;
-    width: 4px;
-    margin-left: -2px;
-    background-color: gray;
-    z-index: -1;
-  }
-
-  &:nth-child(4) {
-    border-bottom: 4px solid gray;
-  }
 }
 
 .Log {
