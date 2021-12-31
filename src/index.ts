@@ -2,33 +2,38 @@ import { scale } from "proportional-scale";
 import { randomNumber, toNode, wait } from "./utils";
 import * as render from "./render";
 
-const root = document.getElementById("root");
+const DOM = {
+  root: document.getElementById("root"),
+  stage: document.getElementById("stage"),
+  log: document.getElementById("log"),
+};
 
 const resize = () => {
-  root.style.position = "fixed";
-  root.style.top = "50%";
-  root.style.left = "50%";
-  root.style.marginLeft = `-${root.offsetWidth / 2}px`;
-  root.style.marginTop = `-${root.offsetHeight / 2}px`;
+  DOM.stage.style.position = "fixed";
+  DOM.stage.style.top = "50%";
+  DOM.stage.style.left = "50%";
+  DOM.stage.style.marginLeft = `-${DOM.stage.offsetWidth / 2}px`;
+  DOM.stage.style.marginTop = `-${DOM.stage.offsetHeight / 2}px`;
 
   const resized = scale({
-    width: root.offsetWidth,
-    height: root.offsetHeight,
+    width: DOM.stage.offsetWidth,
+    height: DOM.stage.offsetHeight,
     maxWidth: window.innerWidth,
     maxHeight: window.innerHeight,
   });
 
-  root.style.transform = `scale(${resized.scale})`;
+  DOM.stage.style.transform = `scale(${resized.scale})`;
 };
 
 const animate = async (from: number, to: number) => {
-  root.innerHTML = "";
+  DOM.stage.innerHTML = "";
 
   const $current = toNode(`<div class='Current'>${render.abacus(from)}</div>`);
   const $next = toNode(`<div class='Next'>${render.abacus(to)}</div>`);
 
-  root.appendChild($current);
-  root.appendChild($next);
+  DOM.stage.appendChild($current);
+  DOM.stage.appendChild($next);
+  DOM.log.innerHTML = render.log(STATE.values);
 
   const columns = $current.querySelectorAll(".Column");
 
@@ -59,26 +64,31 @@ const animate = async (from: number, to: number) => {
     });
   }
 
+  DOM.log.innerHTML = render.log(STATE.values);
+
   // Wait for the animation to finish + pause
   await wait(500 + 1000);
 
-  root.innerHTML = `<div class='Current'>${render.abacus(to)}</div>`;
+  DOM.stage.innerHTML = `<div class='Current'>${render.abacus(to)}</div>`;
 };
 
 const STATE = {
-  current: randomNumber(1, 999999999),
+  values: [0],
 };
 
 const step = async () => {
   const next = randomNumber(1, 999999999);
-  await animate(STATE.current, next);
-  STATE.current = next;
+  const current = STATE.values[STATE.values.length - 1];
+
+  STATE.values = [...STATE.values, next];
+
+  await animate(current, next);
   await step();
 };
 
 step();
-
 resize();
+
 window.addEventListener("resize", resize);
 
 // Parcel

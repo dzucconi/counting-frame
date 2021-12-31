@@ -5,7 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.Root {
+.Stage {
   position: relative;
 }
 
@@ -37,33 +37,35 @@ body {
   justify-content: center;
   color: white;
 
-  // &:after {
-  //   content: "";
-  //   display: block;
-  //   position: absolute;
-  //   top: 0;
-  //   left: 50%;
-  //   bottom: 0;
-  //   width: 4px;
-  //   margin-left: -2px;
-  //   background-color: gray;
-  //   z-index: -1;
-  // }
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    bottom: 0;
+    width: 4px;
+    margin-left: -2px;
+    background-color: gray;
+    z-index: -1;
+  }
 
-  // &:nth-child(4) {
-  //   border-bottom: 4px solid gray;
-  // }
+  &:nth-child(4) {
+    border-bottom: 4px solid gray;
+  }
 }
 
-.Number {
+.Log {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 5vw;
+  top: 0.5rem;
+  left: 0.5rem;
+  font-size: 0.5rem;
   z-index: 1;
+  background-color: white;
+  color: black;
+  border-radius: 1px;
+  letter-spacing: 0.03rem;
+  padding: 0.33rem 0.5rem;
+  mix-blend-mode: difference;
+  text-align: right;
 }

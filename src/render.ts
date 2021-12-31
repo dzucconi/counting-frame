@@ -1,4 +1,5 @@
 import { encode } from "./abacus";
+import { generate } from "./log";
 import { NEGATIVE_STYLES, POSITIVE_STYLES } from "./utils";
 
 export const abacus = (n: number): string => {
@@ -18,5 +19,11 @@ export const abacus = (n: number): string => {
     })
     .join("");
 
-  return `<div class="Grid">${columns}</div>`;
+  return `
+    <div class="Grid">${columns}</div>
+  `;
+};
+
+export const log = (values: number[]): string => {
+  return generate(values).slice(-15).reverse().join("<br>");
 };
