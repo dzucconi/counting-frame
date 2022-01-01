@@ -86,7 +86,7 @@ const structure = () => {
   const $cell = document.querySelector(".Cell:nth-child(4)");
   const { width, bottom } = $cell.getBoundingClientRect();
 
-  const size = Math.floor(width / 30);
+  const size = Math.floor(width / 30) ?? 1;
   const xs = Array.from(document.querySelectorAll(".Column")).map(($column) => {
     return $column.getBoundingClientRect().left + width / 2 - size / 2;
   });
