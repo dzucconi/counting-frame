@@ -1,9 +1,13 @@
 import { encode } from "./abacus";
 import { generate } from "./log";
+import { configure } from "queryparams";
 
-const SIZE = 100;
-const COLOR = "gray";
-const BACKGROUND_COLOR = "transparent";
+const { params } = configure({
+  color: "gray",
+  backgroundColor: "black",
+});
+
+document.body.style.backgroundColor = params.backgroundColor;
 
 export const abacus = (n: number): string => {
   const state = encode(n);
@@ -15,13 +19,13 @@ export const abacus = (n: number): string => {
           return `<div class="Cell" data-cell="${cell}" style="${
             cell
               ? `
-                background-image: radial-gradient(${SIZE}px at 50% 50%, white 0%, ${COLOR} 10%, ${BACKGROUND_COLOR} 50%);
-                width: ${SIZE}px;
-                height: ${SIZE}px;
+                background-image: radial-gradient(100px at 50% 50%, white 0%, ${params.color} 10%, transparent 50%);
+                width: 100px;
+                height: 100px;
               `
               : `
-                width: ${SIZE}px;
-                height: ${SIZE}px;
+                width: 100px;
+                height: 100px;
               `
           }"></div>`;
         })

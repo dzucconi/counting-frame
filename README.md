@@ -10,3 +10,10 @@
   - **URL**: https://damonzucconi-counting-frame.netlify.app/
 - **Host**: https://app.netlify.com/sites/damonzucconi-counting-frame/overview
 - **Deploys**: Merged PRs to `dzucconi/counting-frame#master` are automatically deployed to production. [Manually trigger a deploy](https://app.netlify.com/sites/damonzucconi-counting-frame/deploys)
+
+## Parameters
+
+| Param             | Description      | Type     | Default |
+| ----------------- | ---------------- | -------- | ------- |
+| `color`           | Foreground color | `string` | `gray`  |
+| `backgroundColor` | Background color | `string` | `black` |
