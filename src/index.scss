@@ -7,35 +7,35 @@ body {
 
 .Stage {
   position: relative;
-}
 
-.Next {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0;
-  pointer-events: none;
+  &__next {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .Grid {
   display: flex;
-}
 
-.Column {
-  display: flex;
-  flex-direction: column;
-}
+  &__column {
+    display: flex;
+    flex-direction: column;
+  }
 
-.Cell {
-  position: relative;
-  transition: transform 500ms;
-  font-size: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+  &__cell {
+    position: relative;
+    transition: transform 500ms;
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
 }
 
 .Log {
@@ -50,5 +50,31 @@ body {
   letter-spacing: 0.03rem;
   padding: 0.33rem 0.5rem;
   mix-blend-mode: difference;
-  text-align: right;
+
+  &__equation {
+    display: flex;
+
+    &--highlight {
+      color: red;
+    }
+  }
+
+  &__x,
+  &__y,
+  &__z {
+    min-width: 16ch;
+  }
+
+  &__z {
+    text-align: right;
+  }
+
+  &__symbol,
+  &__equals {
+    width: 2ch;
+  }
+
+  &__equals {
+    text-align: center;
+  }
 }

@@ -13,7 +13,7 @@ const DOM = {
 const TIMINGS = {
   column: 100,
   transition: 500,
-  pause: 1000,
+  pause: 2500,
 };
 
 const resize = () => {
@@ -38,31 +38,32 @@ const resize = () => {
 const animate = async (from: number, to: number) => {
   DOM.stage.innerHTML = "";
 
-  const $current = toNode(`<div class='Current'>${render.abacus(from)}</div>`);
-  const $next = toNode(`<div class='Next'>${render.abacus(to)}</div>`);
+  const $current = toNode(
+    `<div class='Stage__current'>${render.abacus(from)}</div>`
+  );
+  const $next = toNode(`<div class='Stage__next'>${render.abacus(to)}</div>`);
 
   DOM.stage.appendChild($current);
   DOM.stage.appendChild($next);
-  DOM.log.innerHTML = render.log(STATE.values);
 
-  const columns = $current.querySelectorAll(".Column");
+  const columns = $current.querySelectorAll(".Grid__column");
 
   for await (const [i, $nextColumn] of $next
-    .querySelectorAll(".Column")
+    .querySelectorAll(".Grid__column")
     .entries()) {
     // Stagger each column
     await wait(TIMINGS.column);
 
     const $currentColumn = columns[i];
 
-    $nextColumn.querySelectorAll(".Cell").forEach(($cell) => {
+    $nextColumn.querySelectorAll(".Grid__cell").forEach(($cell) => {
       const $to = $cell as HTMLElement;
 
       // Skip blanks
       if ($to.dataset.cell === "false") return;
 
       const $from = $currentColumn.querySelector(
-        `.Cell[data-cell='${$to.dataset.cell}']`
+        `.Grid__cell[data-cell='${$to.dataset.cell}']`
       ) as HTMLElement;
 
       const y = $to.offsetTop - $from.offsetTop;
@@ -74,23 +75,27 @@ const animate = async (from: number, to: number) => {
     });
   }
 
-  DOM.log.innerHTML = render.log(STATE.values);
+  // Wait for the animation to finish
+  await wait(TIMINGS.transition);
 
-  // Wait for the animation to finish + pause
-  await wait(TIMINGS.transition + TIMINGS.pause);
+  // Render the log & pause
+  DOM.log.innerHTML = render.log(STATE.values);
+  await wait(TIMINGS.pause);
 
   DOM.stage.innerHTML = `<div class='Current'>${render.abacus(to)}</div>`;
 };
 
 // Render structure in relation to existing cell grid
 const structure = () => {
-  const $cell = document.querySelector(".Cell:nth-child(4)");
+  const $cell = document.querySelector(".Grid__cell:nth-child(4)");
   const { width, bottom } = $cell.getBoundingClientRect();
 
   const size = Math.floor(width / 30) ?? 1;
-  const xs = Array.from(document.querySelectorAll(".Column")).map(($column) => {
-    return $column.getBoundingClientRect().left + width / 2 - size / 2;
-  });
+  const xs = Array.from(document.querySelectorAll(".Grid__column")).map(
+    ($column) => {
+      return $column.getBoundingClientRect().left + width / 2 - size / 2;
+    }
+  );
   const y = bottom - size / 2;
 
   DOM.structure.innerHTML = render.structure({ size, xs, y });
@@ -112,6 +117,9 @@ const step = async () => {
 
 step();
 resize();
+
+// Render initial log
+DOM.log.innerHTML = render.log(STATE.values);
 
 window.addEventListener("resize", resize);
 
