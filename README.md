@@ -13,7 +13,8 @@
 
 ## Parameters
 
-| Param             | Description      | Type     | Default |
-| ----------------- | ---------------- | -------- | ------- |
-| `color`           | Foreground color | `string` | `gray`  |
-| `backgroundColor` | Background color | `string` | `black` |
+| Param             | Description                       | Type     | Default |
+| ----------------- | --------------------------------- | -------- | ------- |
+| `color`           | Foreground color                  | `string` | `gray`  |
+| `backgroundColor` | Background color                  | `string` | `black` |
+| `logCount`        | Number of elements to keep in log | `number` | `2`     |

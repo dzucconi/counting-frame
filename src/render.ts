@@ -1,11 +1,6 @@
 import { encode } from "./abacus";
 import { generate } from "./log";
-import { configure } from "queryparams";
-
-const { params } = configure({
-  color: "gray",
-  backgroundColor: "black",
-});
+import { params } from "./config";
 
 document.body.style.backgroundColor = params.backgroundColor;
 
@@ -41,7 +36,9 @@ export const abacus = (n: number): string => {
 };
 
 export const log = (values: number[]): string => {
-  const entries = generate(values).slice(-15).reverse();
+  if (params.logCount === 0) return "";
+
+  const entries = generate(values).reverse();
 
   return entries
     .map(({ x, y, z, symbol }, i) => {
