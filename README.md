@@ -15,6 +15,8 @@
 
 | Param             | Description                       | Type     | Default |
 | ----------------- | --------------------------------- | -------- | ------- |
-| `color`           | Foreground color                  | `string` | `gray`  |
-| `backgroundColor` | Background color                  | `string` | `black` |
+| `color`           | Color of element                  | `string` | `gray`  |
+| `highlightColor`  | Color of element highlight        | `string` | `white` |
+| `backgroundColor` | Color of background               | `string` | `black` |
+| `latticeColor`    | Color of lattice                  | `string` | `gray`  |
 | `logCount`        | Number of elements to keep in log | `number` | `2`     |

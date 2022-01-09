@@ -14,7 +14,7 @@ export const abacus = (n: number): string => {
           return `<div class="Grid__cell" data-cell="${cell}" style="${
             cell
               ? `
-                background-image: radial-gradient(100px at 50% 50%, white 0%, ${params.color} 10%, transparent 50%);
+                background-image: radial-gradient(100px at 50% 50%, ${params.highlightColor} 0%, ${params.color} 10%, transparent 50%);
                 width: 100px;
                 height: 100px;
               `
@@ -69,7 +69,7 @@ export const structure = ({
     ...xs.map((x) => {
       return `
         <div style='
-          background-color: gray;
+          background-color: ${params.latticeColor};
           bottom: 0;
           left: ${x}px;
           position: fixed;
@@ -82,7 +82,7 @@ export const structure = ({
 
     // Horizontal line
     `<div style='
-      background-color: gray;
+      background-color: ${params.latticeColor};
       position: fixed;
       top: ${y}px;
       left: 0;
