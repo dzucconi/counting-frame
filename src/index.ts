@@ -1,8 +1,6 @@
 import { scale } from "proportional-scale";
 import { randomNumber, toNode, wait } from "./utils";
 import * as render from "./render";
-import { LIMIT } from "./abacus";
-import { params } from "./config";
 
 const DOM = {
   root: document.getElementById("root"),
@@ -110,7 +108,7 @@ const STATE = {
 };
 
 const step = async () => {
-  const next = randomNumber(1, LIMIT);
+  const next = randomNumber();
   const current = STATE.values[STATE.values.length - 1];
 
   STATE.values = [...STATE.values, next].slice(-25); // Keep last 25 values

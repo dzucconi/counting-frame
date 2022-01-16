@@ -25,8 +25,8 @@ export const buildRange = (max: number): number[] => {
     .reverse();
 };
 
-const MAX = 10000000000;
-const RANGE = buildRange(MAX);
+export const MAX = 10000000000;
+export const RANGE = buildRange(MAX);
 export const LIMIT = MAX - 1;
 
 export type Column = typeof COLUMNS[0];
