@@ -80,8 +80,11 @@ const animate = async (from: number, to: number) => {
   await wait(TIMINGS.transition);
 
   // Render the log & pause
+  DOM.log.classList.remove("Log--in");
   DOM.log.innerHTML = render.log(STATE.values);
+
   await wait(TIMINGS.pause);
+  DOM.log.classList.add("Log--in");
 
   DOM.stage.innerHTML = `<div class='Current'>${render.abacus(to)}</div>`;
 };
@@ -110,7 +113,7 @@ const step = async () => {
   const next = randomNumber(1, LIMIT);
   const current = STATE.values[STATE.values.length - 1];
 
-  STATE.values = [...STATE.values, next].slice(-params.logCount);
+  STATE.values = [...STATE.values, next].slice(-25); // Keep last 25 values
 
   await animate(current, next);
   await step();

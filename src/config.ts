@@ -5,5 +5,4 @@ export const { params } = configure({
   highlightColor: "white",
   backgroundColor: "black",
   latticeColor: "gray",
-  logCount: 2,
 });

@@ -1,6 +1,7 @@
 import { encode } from "./abacus";
 import { generate } from "./log";
 import { params } from "./config";
+import { times } from "./utils";
 
 document.body.style.backgroundColor = params.backgroundColor;
 
@@ -36,23 +37,32 @@ export const abacus = (n: number): string => {
 };
 
 export const log = (values: number[]): string => {
-  if (params.logCount === 0) return "";
+  const amount = 3;
+  const entries = generate(values).slice(-amount);
+  const padded =
+    entries.length < amount
+      ? [...times(amount - entries.length, () => entries[0]), ...entries]
+      : entries;
 
-  const entries = generate(values).reverse();
-
-  return entries
-    .map(({ x, y, z, symbol }, i) => {
-      return `
-        <div class="Log__equation ${i === 0 ? "Log__equation--highlight" : ""}">
-          <div class="Log__x">${x}</div>
-          <div class="Log__symbol">${symbol}</div>
-          <div class="Log__y">${y}</div>
-          <div class="Log__equals">=</div>
-          <div class="Log__z">${z}</div>
-        </div>
-      `;
-    })
-    .join("");
+  return `
+    <div class="Log__entries">
+      ${padded
+        .map(({ x, y, z, symbol }, i) => {
+          return `
+            <div class="Log__equation ${
+              i === 0 ? "Log__equation--highlight" : ""
+            }">
+              <div class="Log__x">${x}</div>
+              <div class="Log__symbol">${symbol}</div>
+              <div class="Log__y">${y}</div>
+              <div class="Log__equals">=</div>
+              <div class="Log__z">${z}</div>
+            </div>
+          `;
+        })
+        .join("")}
+    </div>
+  `;
 };
 
 export const structure = ({

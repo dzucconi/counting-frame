@@ -1,8 +1,16 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
 body {
   background-color: black;
   color: white;
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  line-height: 1.25;
 }
 
 .Stage {
@@ -39,17 +47,31 @@ body {
 }
 
 .Log {
+  $self: &;
+  $line: calc(1em * 1.25);
+
   position: fixed;
-  top: 0.5rem;
-  left: 0.5rem;
-  font-size: 0.5rem;
+  top: 0;
+  left: 0.5em;
   z-index: 1;
-  background-color: white;
-  color: gray;
+  color: #eee;
   border-radius: 1px;
-  letter-spacing: 0.03rem;
-  padding: 0.33rem 0.5rem;
-  mix-blend-mode: difference;
+  letter-spacing: 0.03em;
+  mask-image: linear-gradient(
+    to top,
+    rgb(0, 0, 0) 0%,
+    rgb(0, 0, 0) 33%,
+    transparent 100%
+  );
+
+  &--in {
+    #{$self}__entries {
+      transition: transform 250ms;
+      transform: translateY(
+        -(calc($line * 1))
+      ); // Transform up one complete line
+    }
+  }
 
   &:empty {
     display: none;
@@ -57,28 +79,15 @@ body {
 
   &__equation {
     display: flex;
-
-    &--highlight {
-      color: black;
-    }
-  }
-
-  &__x,
-  &__y,
-  &__z {
-    min-width: 16ch;
-  }
-
-  &__z {
-    text-align: right;
   }
 
   &__symbol,
   &__equals {
-    width: 2ch;
+    width: 3ch;
+    text-align: center;
   }
 
-  &__equals {
-    text-align: center;
+  @media (max-width: 768px) {
+    font-size: 0.66rem;
   }
 }
