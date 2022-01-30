@@ -56,6 +56,7 @@ body {
   z-index: 1;
   color: #eee;
   border-radius: 1px;
+  font-size: max(1.33vh, 1vw, 0.66rem);
   letter-spacing: 0.03em;
   mask-image: linear-gradient(
     to top,
@@ -85,9 +86,5 @@ body {
   &__equals {
     width: 3ch;
     text-align: center;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 0.66rem;
   }
 }
