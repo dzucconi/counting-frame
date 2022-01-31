@@ -15,7 +15,7 @@ export const abacus = (n: number): string => {
           return `<div class="Grid__cell" data-cell="${cell}" style="${
             cell
               ? `
-                background-image: radial-gradient(100px at 50% 50%, ${params.highlightColor} 0%, ${params.color} 10%, transparent 50%);
+                background-image: radial-gradient(100px at 50% 50%, ${params.highlightColor} 0%, ${params.color} 10%, ${params.backgroundColor} 50%);
                 width: 100px;
                 height: 100px;
               `
