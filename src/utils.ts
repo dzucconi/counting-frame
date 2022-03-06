@@ -6,8 +6,12 @@ export const __randomNumber__ = (min: number, max: number) => {
 };
 
 export const randomNumber = () => {
-  const max = sample(RANGE.slice(0, -1)) - 1;
-  return __randomNumber__(1, max);
+  const rangeMax = sample(RANGE.slice(0, -1));
+
+  const max = rangeMax - 1;
+  const min = RANGE[RANGE.indexOf(rangeMax) + 1];
+
+  return __randomNumber__(min, max);
 };
 
 export const wait = (ms: number) => {
