@@ -44,8 +44,11 @@ export const log = (values: number[]): string => {
       ? [...times(amount - entries.length, () => entries[0]), ...entries]
       : entries;
 
+  const last = entries[entries.length - 1];
+  const read = `${last.x} ${last.symbol} ${last.y} = ${last.z}`;
+
   return `
-    <div class="Log__entries">
+    <div class="Log__entries" aria-live="assertive" aria-label="${read}" tabIndex="0">
       ${padded
         .map(({ x, y, z, symbol }, i) => {
           return `
