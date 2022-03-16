@@ -13,10 +13,14 @@
 
 ## Parameters
 
-| Param             | Description                | Type     | Default |
-| ----------------- | -------------------------- | -------- | ------- |
-| `color`           | Color of element           | `string` | `gray`  |
-| `highlightColor`  | Color of element highlight | `string` | `white` |
-| `backgroundColor` | Color of background        | `string` | `black` |
-| `latticeColor`    | Color of lattice           | `string` | `gray`  |
-| `powers`          | Powers of ten              | `number` | `10`    |
+| Param                | Description                                | Type     | Default |
+| -------------------- | ------------------------------------------ | -------- | ------- |
+| `color`              | Color of element                           | `string` | `gray`  |
+| `highlightColor`     | Color of element highlight                 | `string` | `white` |
+| `backgroundColor`    | Color of background                        | `string` | `black` |
+| `latticeColor`       | Color of lattice                           | `string` | `gray`  |
+| `powers`             | Powers of ten                              | `number` | `10`    |
+| `columnOffsetMs`     | Column offset timing in milliseconds       | `number` | `100`   |
+| `columnTransitionMs` | Column transition timing in milliseconds   | `number` | `500`   |
+| `logTransitionMs`    | Log row transition timing in milliseconds  | `number` | `250`   |
+| `pauseMs`            | Pause between calculations in milliseconds | `number` | `2500`  |

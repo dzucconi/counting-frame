@@ -6,4 +6,8 @@ export const { params } = configure({
   backgroundColor: "black",
   latticeColor: "gray",
   powers: 10,
+  columnOffsetMs: 100,
+  columnTransitionMs: 500,
+  logTransitionMs: 250,
+  pauseMs: 2500,
 });

@@ -37,7 +37,7 @@ body {
 
   &__cell {
     position: relative;
-    transition: transform 500ms;
+    transition-property: transform;
     font-size: 3rem;
     display: flex;
     align-items: center;
@@ -68,7 +68,7 @@ body {
 
   &--in {
     #{$self}__entries {
-      transition: transform 250ms;
+      transition-property: transform;
       transform: translateY(
         -(calc($line * 1))
       ); // Transform up one complete line

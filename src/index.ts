@@ -1,18 +1,13 @@
 import { scale } from "proportional-scale";
 import { randomNumber, toNode, wait } from "./utils";
 import * as render from "./render";
+import { params } from "./config";
 
 const DOM = {
   root: document.getElementById("root"),
   stage: document.getElementById("stage"),
   log: document.getElementById("log"),
   structure: document.getElementById("structure"),
-};
-
-const TIMINGS = {
-  column: 100,
-  transition: 500,
-  pause: 2500,
 };
 
 const resize = () => {
@@ -51,7 +46,7 @@ const animate = async (from: number, to: number) => {
     .querySelectorAll(".Grid__column")
     .entries()) {
     // Stagger each column
-    await wait(TIMINGS.column);
+    await wait(params.columnOffsetMs);
 
     const $currentColumn = columns[i];
 
@@ -75,13 +70,13 @@ const animate = async (from: number, to: number) => {
   }
 
   // Wait for the animation to finish
-  await wait(TIMINGS.transition);
+  await wait(params.columnTransitionMs);
 
   // Render the log & pause
   DOM.log.classList.remove("Log--in");
   DOM.log.innerHTML = render.log(STATE.values);
 
-  await wait(TIMINGS.pause);
+  await wait(params.pauseMs);
   DOM.log.classList.add("Log--in");
 
   DOM.stage.innerHTML = `<div class='Current'>${render.abacus(to)}</div>`;

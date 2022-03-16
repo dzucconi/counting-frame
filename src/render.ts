@@ -18,6 +18,7 @@ export const abacus = (n: number): string => {
                 background-image: radial-gradient(100px at 50% 50%, ${params.highlightColor} 0%, ${params.color} 10%, ${params.backgroundColor} 50%);
                 width: 100px;
                 height: 100px;
+                transition-duration: ${params.columnTransitionMs}ms;
               `
               : `
                 width: 100px;
@@ -48,7 +49,9 @@ export const log = (values: number[]): string => {
   const read = `${last.x} ${last.symbol} ${last.y} = ${last.z}`;
 
   return `
-    <div class="Log__entries" aria-live="assertive" aria-label="${read}" tabIndex="0">
+    <div class="Log__entries" aria-live="assertive" aria-label="${read}" tabIndex="0" style="transition-duration: ${
+    params.logTransitionMs
+  }ms">
       ${padded
         .map(({ x, y, z, symbol }, i) => {
           return `
