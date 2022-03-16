@@ -1,3 +1,5 @@
+import { params } from "./config";
+
 const COLUMNS = [
   ["A", "B", false, false, false, false, "C", "D", "E", "F", "G"], // 0
   ["A", "B", false, false, "C", false, false, "D", "E", "F", "G"], // 1
@@ -25,7 +27,7 @@ export const buildRange = (max: number): number[] => {
     .reverse();
 };
 
-export const MAX = 10000000000;
+export const MAX = 10 ** params.powers;
 export const RANGE = buildRange(MAX);
 export const LIMIT = MAX - 1;
 

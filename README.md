@@ -19,3 +19,4 @@
 | `highlightColor`  | Color of element highlight | `string` | `white` |
 | `backgroundColor` | Color of background        | `string` | `black` |
 | `latticeColor`    | Color of lattice           | `string` | `gray`  |
+| `powers`          | Powers of ten              | `number` | `10`    |

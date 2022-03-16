@@ -5,4 +5,5 @@ export const { params } = configure({
   highlightColor: "white",
   backgroundColor: "black",
   latticeColor: "gray",
+  powers: 10,
 });
